@@ -1,13 +1,15 @@
-﻿drop table if exists titles cascade;
-drop table if exists employees cascade;
-drop table if exists departments cascade;
-drop table if exists dept_manager;
-drop table if exists dept_emp;
-drop table if exists salaries;
+﻿-- Drop tables if they exist, include cascade for dependent tables deletes
+-- Makes schema sql reusable to destroy and recreate
+DROP TABLE IF EXISTS titles cascade;
+DROP TABLE IF EXISTS employees cascade;
+DROP TABLE IF EXISTS departments cascade;
+DROP TABLE IF EXISTS dept_manager;
+DROP TABLE IF EXISTS dept_emp;
+DROP TABLE IF EXISTS salaries;
 
 -- Create the titles table, with a primary id and a title
-create table titles(
-	title_id char(5) primary key,
+CREATE TABLE titles(
+	title_id char(5) PRIMARY KEY,
 	title varchar(20)
 );
 -- Create an employees table, with the following: 
@@ -20,9 +22,9 @@ create table titles(
 --    hire date
 -- set the foreign key and primary key relationships accordingly
 
-create table employees(
-	emp_no int primary key
-	, emp_title_id char(5) references titles
+CREATE TABLE employees(
+	emp_no int PRIMARY KEY
+	, emp_title_id char(5) REFERENCES titles
 	, birth_date date
 	, first_name varchar
 	, last_name varchar
@@ -35,8 +37,8 @@ create table employees(
 --    department name
 -- set the primary key relationships accordingly
 
-create table departments(
-	dept_no char(4) primary key
+CREATE TABLE departments(
+	dept_no char(4) PRIMARY KEY
 	, dept_name varchar(20)
 );
 
@@ -45,9 +47,9 @@ create table departments(
 --    employee number
 -- set the foreign key and primary key relationships accordingly
 
-create table dept_manager(
-	dept_no char(4) references departments
-	, emp_no int references employees
+CREATE TABLE dept_manager(
+	dept_no char(4) REFERENCES departments
+	, emp_no int REFERENCES employees
 );
 
 -- Create an dept_emp table, with the following: 
@@ -55,9 +57,9 @@ create table dept_manager(
 --    employee number
 -- set the foreign key and primary key relationships accordingly
 
-create table dept_emp(
-	emp_no int references employees
-	, dept_no char(4) references departments
+CREATE TABLE dept_emp(
+	emp_no int REFERENCES employees
+	, dept_no char(4) REFERENCES departments
 );
 
 -- Create an salaries table, with the following: 
@@ -65,7 +67,7 @@ create table dept_emp(
 --    employee number
 -- set the foreign key and primary key relationships accordingly
 
-create table salaries(
-	emp_no int references employees
+CREATE TABLE salaries(
+	emp_no int REFERENCES employees
 	, salary money
 );
