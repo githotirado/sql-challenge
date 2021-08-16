@@ -2,7 +2,7 @@
 
 -- Create the titles table, with a primary id and a title
 create table titles(
-	title_id char(5),
+	title_id char(5) primary key,
 	title varchar(20)
 );
 -- Create an employees table, with the following: 
@@ -16,8 +16,8 @@ create table titles(
 -- set the foreign key and primary key relationships accordingly
 drop table if exists employees;
 create table employees(
-	emp_no int
-	, emp_title_id char(5)
+	emp_no int primary key
+	, emp_title_id char(5) references titles
 	, birth_date char(10)
 	, first_name varchar
 	, last_name varchar
@@ -31,7 +31,7 @@ create table employees(
 -- set the primary key relationships accordingly
 drop table if exists departments;
 create table departments(
-	dept_no char(4)
+	dept_no char(4) primary key
 	, dept_name varchar(20)
 );
 
@@ -41,8 +41,8 @@ create table departments(
 -- set the foreign key and primary key relationships accordingly
 drop table if exists dept_manager;
 create table dept_manager(
-	dept_no char(4)
-	, emp_no int
+	dept_no char(4) references departments
+	, emp_no int references employees
 );
 
 -- Create an dept_emp table, with the following: 
@@ -51,8 +51,8 @@ create table dept_manager(
 -- set the foreign key and primary key relationships accordingly
 drop table if exists dept_emp;
 create table dept_emp(
-	emp_no int
-	, dept_no char(4)
+	emp_no int references employees
+	, dept_no char(4) references departments
 );
 
 -- Create an salaries table, with the following: 
@@ -61,6 +61,6 @@ create table dept_emp(
 -- set the foreign key and primary key relationships accordingly
 drop table if exists salaries;
 create table salaries(
-	emp_no int
+	emp_no int references employees
 	, salary int
 );
