@@ -1,6 +1,6 @@
 -- Select the employee number, last name, first name, sex, and salary of all employees, ordered by employee number
 SELECT
-	e.emp_no
+	e.emp_no employee_number
 	, e.last_name
 	, e.first_name
 	, e.sex
@@ -16,13 +16,13 @@ SELECT
 	, e.hire_date
 FROM employees e
 WHERE
-	e.hire_date LIKE '%1986';
+	EXTRACT(year from e.hire_date) = 1986;
 
 -- Select the department number, department name, employee number, last name, and first name of all managers of each department
 SELECT
-	ds.dept_no
+	ds.dept_no dept_number
 	, ds.dept_name
-	, e.emp_no
+	, e.emp_no empl_number
 	, e.last_name
 	, e.first_name
 	, t.title
@@ -31,11 +31,11 @@ FROM
 	LEFT JOIN dept_manager dm ON ds.dept_no = dm.dept_no
 	LEFT JOIN employees e ON e.emp_no = dm.emp_no
 	LEFT JOIN titles t  ON e.emp_title_id = t.title_id
-ORDER BY dept_no;
+ORDER BY dept_number;
 
 -- Select the employee number, last name, first name, and department of each employee, ordered by employee number
 SELECT
-    e.emp_no
+    e.emp_no empl_number
 	, e.last_name
 	, e.first_name
 	, d.dept_name
@@ -43,7 +43,7 @@ FROM
 	employees e
 	LEFT JOIN dept_emp de ON e.emp_no = de.emp_no
 	LEFT JOIN departments d ON de.dept_no = d.dept_no
-ORDER BY e.emp_no;
+ORDER BY empl_number;
 
 -- Select first name, last name, birth date, and sex of all employees whose first name is "Hercules" and last name begins with a "B"
 SELECT
@@ -57,7 +57,7 @@ AND e.last_name LIKE 'B%';
 
 -- Select employee number, last name, first name, and department name of all employees in the Sales department, ordered by employee number
 SELECT
-	e.emp_no
+	e.emp_no empl_number
 	, e.last_name
 	, e.first_name
 	, d.dept_name
@@ -66,11 +66,11 @@ FROM
 	LEFT JOIN dept_emp de ON e.emp_no = de.emp_no
 	LEFT JOIN departments d ON de.dept_no = d.dept_no
 WHERE d.dept_name = 'Sales'
-ORDER BY e.emp_no;
+ORDER BY empl_number;
 
 -- Select employee number, last name, first name, and department name of all employees in the 'Sales' OR the 'Development' department, ordered by employee number
 SELECT
-	e.emp_no
+	e.emp_no empl_number
 	, e.last_name
 	, e.first_name
 	, d.dept_name
@@ -80,9 +80,8 @@ FROM
 	LEFT JOIN departments d ON de.dept_no = d.dept_no
 WHERE
 	d.dept_name IN ('Sales', 'Development')
-ORDER BY e.emp_no;
+ORDER BY empl_number;
 	
-
 -- Count the number of employees, grouped by last name
 SELECT
 	e.last_name
@@ -91,11 +90,11 @@ FROM employees e
 GROUP BY e.last_name
 ORDER BY emp_count DESC;
 
-
--- select
--- 	e.last_name
--- 	, e.first_name
--- from employees e
--- -- group by e.last_name
--- -- order by e.last_name;
--- order by emp_count desc;
+-- (Bonus) Find my employee number 499942
+SELECT
+	e.first_name
+	, e.last_name
+FROM
+	employees e
+WHERE
+	e.emp_no = 499942;
