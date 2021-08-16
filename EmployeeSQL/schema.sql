@@ -31,7 +31,7 @@ create table employees(
 -- set the primary key relationships accordingly
 drop table if exists departments;
 create table departments(
-	dept_no int
+	dept_no char(4)
 	, dept_name varchar(20)
 );
 
@@ -41,7 +41,7 @@ create table departments(
 -- set the foreign key and primary key relationships accordingly
 drop table if exists dept_manager;
 create table dept_manager(
-	dept_no int
+	dept_no char(4)
 	, emp_no int
 );
 
@@ -52,7 +52,7 @@ create table dept_manager(
 drop table if exists dept_emp;
 create table dept_emp(
 	emp_no int
-	, dept_no int
+	, dept_no char(4)
 );
 
 -- Create an salaries table, with the following: 

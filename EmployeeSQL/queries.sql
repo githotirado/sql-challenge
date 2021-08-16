@@ -7,7 +7,7 @@ select
 	, s.salary
 from employees e
 join salaries s on e.emp_no = s.emp_no
-order by emp_no;
+order by e.emp_no;
 
 -- Select the first name, last name, and hiring date for all employees hired in 1986 
 select
@@ -53,7 +53,7 @@ select
 	, e.sex
 from employees e
 where e.first_name = 'Hercules'
-and e.last_name like 'B%'
+and e.last_name like 'B%';
 
 -- Select employee number, last name, first name, and department name of all employees in the Sales department, ordered by employee number
 select
@@ -89,4 +89,13 @@ select
 	, count(e.last_name) emp_count
 from employees e
 group by e.last_name
-order by e.last_name;
+order by emp_count desc;
+
+
+-- select
+-- 	e.last_name
+-- 	, e.first_name
+-- from employees e
+-- -- group by e.last_name
+-- -- order by e.last_name;
+-- order by emp_count desc;
