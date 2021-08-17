@@ -1,5 +1,8 @@
 SQL-CHALLENGE:
 
+ERD diagram: https://app.quickdatabasediagrams.com/#/d/mh84ZS
+Also located in /Images folder.
+
 Necessary Setup: the schema.sql file drops and creates the necessary tables in the right order (tables with primary keys first, tables with foreign keys last), but it also contains 6 'copy' commands at the end of the file allowing the SQL to import the necessary .csv files.  To run schema.sql, one will need to change the author's home directory location of those supporting files with the user's own full path to those files.  
 
 Here is one example of the 6 copy sections that need updating.  In the FROM line you will need to update the full path of the loation where the Data/ files reside on your laptop.  Update for the 6 COPY sections:
