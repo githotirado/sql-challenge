@@ -25,7 +25,7 @@ SELECT
 	, e.emp_no empl_number
 	, e.last_name
 	, e.first_name
-	, t.title
+-- 	, t.title
 FROM
 	departments ds
 	LEFT JOIN dept_manager dm ON ds.dept_no = dm.dept_no

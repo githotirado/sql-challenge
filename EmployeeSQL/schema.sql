@@ -71,3 +71,34 @@ CREATE TABLE salaries(
 	emp_no int REFERENCES employees
 	, salary money
 );
+
+-- Import data from Data folder
+COPY titles(title_id, title)
+FROM '/Users/henrytirado/git/usc_homework/sql-challenge/EmployeeSQL/Data/titles.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY employees(emp_no, emp_title_id, birth_date, first_name, last_name, sex, hire_date)
+FROM '/Users/henrytirado/git/usc_homework/sql-challenge/EmployeeSQL/Data/employees2.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY departments(dept_no, dept_name)
+FROM '/Users/henrytirado/git/usc_homework/sql-challenge/EmployeeSQL/Data/departments.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY dept_manager(dept_no, emp_no)
+FROM '/Users/henrytirado/git/usc_homework/sql-challenge/EmployeeSQL/Data/dept_manager.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY dept_emp(emp_no, dept_no)
+FROM '/Users/henrytirado/git/usc_homework/sql-challenge/EmployeeSQL/Data/dept_emp.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY salaries(emp_no, salary)
+FROM '/Users/henrytirado/git/usc_homework/sql-challenge/EmployeeSQL/Data/salaries.csv'
+DELIMITER ','
+CSV HEADER;
