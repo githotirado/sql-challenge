@@ -1,18 +1,24 @@
 SQL-CHALLENGE:
 
-ERD diagram: https://app.quickdatabasediagrams.com/#/d/mh84ZS
-Also located in /Images folder.
+ERD image is found in /Images folder.  URL: https://app.quickdatabasediagrams.com/#/d/mh84ZS
 
-Necessary Setup: the schema.sql file drops and creates the necessary tables in the right order (tables with primary keys first, tables with foreign keys last), but it also contains 6 'copy' commands at the end of the file allowing the SQL to import the necessary .csv files.  To run schema.sql, one will need to change the author's home directory location of those supporting files with the user's own full path to those files.  
+BONUS CHALLENGE WAS ALSO COMPLETED. DB Password hidden by requiring user to have a DATABASE_URL environment variable set for the user's own database as explained below.
 
-Here is one example of the 6 copy sections that need updating.  In the FROM line you will need to update the full path of the loation where the Data/ files reside on your laptop.  Update for the 6 COPY sections:
+Necessary Setup 3 steps:
+1.  The 'data/' folder contains the 6 .csv files containing data for the 6 tables.  Note that 'employees2.csv' is the correct file for importing employee data, so it must be present even though class notes were updated to use 'employees.csv' file.  But 'employees2.csv' has the correct listings without any violations to the primary keys defined in 'employees' table.
+2.  In 'schema.sql' there are 6 'COPY' command sections at the end of the file that need updating so that the correct 'data/' folder is used in the import.  The SQL 'copy' command only uses full paths, so anyone attempting to run the schema.sql needs to update the full path of these supporting files with the user's own full path to those files:
+
+Here is one example of the 6 copy command sections that need updating in the 'schema.sql' file:  you will need to update the full path of the location where the Data/ files reside on your laptop.  Update the 6 'FROM' lines for successful import:
 COPY titles(title_id, title)
 FROM '/Users/henrytirado/git/usc_homework/sql-challenge/EmployeeSQL/Data/titles.csv'
 DELIMITER ','
 CSV HEADER;
 
-The 'copy' command expects full path to each file imported.  Each file requires mentioning the delimiter as well as the presence of a header row.
+3. For the bonus work, the Jupyter Notebook references a database URL that needs to be defined in the user's environment.  So you will need to set DATABASE_URL environment variable in your environment where you launch Jupyter notebook.  Here is what the line would look like in a .zshrc file for Mac. Substitute your db user name, your db password, and the db that you will use to import the tables.
 
+export DATABASE_URL="postgresql://<your db username>:<your db password>@localhost:5432/<your db>"
+
+========================================================
 1. SCHEMA.SQL:
 This SQL query will create tables in order:  titles, employees, departments, dept_manager, dept_emp, salaries.  That is because employees table has a foreign key dependency on titles, and dept_manager and dept_emp both have foreign key dependencies on employees and departments tables.  salaries table has a foreign key dependency on employees table.  For this same reason, the dropping of the tables employees, departments, and titles require a 'CASCADE' directive to get rid of dependent tables/keys when dropping those principle tables.
 
@@ -20,9 +26,8 @@ This SQL query will create tables in order:  titles, employees, departments, dep
 These queries are straightforward.  Special consideration was taken for the hire_date and birth_date columns in employees table.  I marked these as type 'date' which meant that in some queries I had to use date-specific functions to choose the year (ie, EXTRACT) for comparison.  I used LEFT JOINs when doing multiple table joins to keep data from merges that had already happened.
 
 3. BONUS (Jupyter Notebook):
-- had to import sqlalchemy libraries
-- perform a command line installation of psycopg2 (pip install psycopg2-binary)
-- have yet to compensate for the password of user 'postgres' in the command line within Jupyter notebook
-- Person running this must compensate for the user name, password, and database being used in the connection string.
+- I had to import sqlalchemy libraries
+- performed a command line installation of psycopg2 (pip install psycopg2-binary)
+- As mentioned above, expectation is that the user define DATABASE_URL as an environment variable
 
 Epilogue: the employee ID 499942 is for a person named April Foolsday.  Hence, the data was in fact an April Fool's Day joke.
