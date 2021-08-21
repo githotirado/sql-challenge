@@ -1,4 +1,4 @@
-﻿-- Drop tables if they exist, include cascade for dependent tables deletes
+-- Drop tables if they exist, include cascade for dependent tables deletes
 -- Makes schema sql reusable to destroy and recreate
 DROP TABLE IF EXISTS titles cascade;
 DROP TABLE IF EXISTS employees cascade;
@@ -24,7 +24,9 @@ CREATE TABLE titles(
 
 CREATE TABLE employees(
 	emp_no int PRIMARY KEY
-	, emp_title_id char(5) REFERENCES titles
+--	, emp_title_id char(5) REFERENCES titles
+	, emp_title_id char(5)
+	, FOREIGN KEY (emp_title_id) REFERENCES titles(title_id)
 	, birth_date date
 	, first_name varchar
 	, last_name varchar
@@ -48,8 +50,13 @@ CREATE TABLE departments(
 -- set the foreign key and primary key relationships accordingly
 
 CREATE TABLE dept_manager(
-	dept_no char(4) REFERENCES departments
-	, emp_no int REFERENCES employees
+--	dept_no char(4) REFERENCES departments
+--	, emp_no int REFERENCES employees
+	dept_no char(4)
+	, emp_no int
+	, PRIMARY KEY (dept_no, emp_no)
+	, FOREIGN KEY (dept_no) REFERENCES departments(dept_no)
+	, FOREIGN KEY (emp_no)  REFERENCES employees(emp_no)
 );
 
 -- Create an dept_emp table, with the following: 
@@ -58,8 +65,13 @@ CREATE TABLE dept_manager(
 -- set the foreign key and primary key relationships accordingly
 
 CREATE TABLE dept_emp(
-	emp_no int REFERENCES employees
-	, dept_no char(4) REFERENCES departments
+-- 	emp_no int REFERENCES employees
+-- 	, dept_no char(4) REFERENCES departments
+	emp_no int
+	, dept_no char(4)
+	, PRIMARY KEY (emp_no, dept_no)
+	, FOREIGN KEY (emp_no) REFERENCES employees(emp_no)
+	, FOREIGN KEY (dept_no) REFERENCES departments(dept_no)
 );
 
 -- Create an salaries table, with the following: 
@@ -68,7 +80,9 @@ CREATE TABLE dept_emp(
 -- set the foreign key and primary key relationships accordingly
 
 CREATE TABLE salaries(
-	emp_no int REFERENCES employees
+-- 	emp_no int REFERENCES employees
+	emp_no int
+	,FOREIGN KEY (emp_no) REFERENCES employees(emp_no)
 	, salary money
 );
 
@@ -79,7 +93,7 @@ DELIMITER ','
 CSV HEADER;
 
 COPY employees(emp_no, emp_title_id, birth_date, first_name, last_name, sex, hire_date)
-FROM '/Users/henrytirado/git/usc_homework/sql-challenge/EmployeeSQL/Data/employees2.csv'
+FROM '/Users/henrytirado/git/usc_homework/sql-challenge/EmployeeSQL/Data/employees.csv'
 DELIMITER ','
 CSV HEADER;
 

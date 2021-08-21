@@ -4,9 +4,9 @@ ERD image is found in /Images folder.  URL: https://app.quickdatabasediagrams.co
 
 BONUS CHALLENGE WAS ALSO COMPLETED. DB Password hidden by requiring user to have a DATABASE_URL environment variable set for the user's own database as explained below.
 
-Necessary Setup 3 steps:
-1.  The 'data/' folder contains the 6 .csv files containing data for the 6 tables.  Note that 'employees2.csv' is the correct file for importing employee data, so it must be present even though class notes were updated to use 'employees.csv' file.  But 'employees2.csv' has the correct listings without any violations to the primary keys defined in 'employees' table.
-2.  In 'schema.sql' there are 6 'COPY' command sections at the end of the file that need updating so that the correct 'data/' folder is used in the import.  The SQL 'copy' command only uses full paths, so anyone attempting to run the schema.sql needs to update the full path of these supporting files with the user's own full path to those files:
+Necessary Setup 2 steps:
+1.  The 'data/' folder contains the 6 .csv files containing data for the 6 tables.
+    In 'schema.sql' there are 6 'COPY' command sections at the end of the file that need updating so that the correct 'data/' folder is used in the import.  The SQL 'copy' command only uses full paths, so anyone attempting to run the schema.sql needs to update the full path of these supporting files with the user's own full path to those files:
 
 Here is one example of the 6 copy command sections that need updating in the 'schema.sql' file:  you will need to update the full path of the location where the Data/ files reside on your laptop.  Update the 6 'FROM' lines for successful import:
 COPY titles(title_id, title)
@@ -14,7 +14,7 @@ FROM '/Users/henrytirado/git/usc_homework/sql-challenge/EmployeeSQL/Data/titles.
 DELIMITER ','
 CSV HEADER;
 
-3. For the bonus work, the Jupyter Notebook references a database URL that needs to be defined in the user's environment.  So you will need to set DATABASE_URL environment variable in your environment where you launch Jupyter notebook.  Here is what the line would look like in a .zshrc file for Mac. Substitute your db user name, your db password, and the db that you will use to import the tables.
+2. For the bonus work, the Jupyter Notebook references a database URL that needs to be defined in the user's environment.  So you will need to set DATABASE_URL environment variable in your environment where you launch Jupyter notebook.  Here is what the line would look like in a .zshrc file for Mac. Substitute your db user name, your db password, and the db that you will use to import the tables.
 
 export DATABASE_URL="postgresql://<your db username>:<your db password>@localhost:5432/<your db>"
 
